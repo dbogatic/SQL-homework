@@ -3775,7 +3775,12 @@ INSERT INTO transaction VALUES
     (1168, '2018-12-31 08:22:17', 11.87, 4188164051171486, 54),
     (2476, '2018-12-31 09:50:25', 19.75, 4723783028106084756, 16);
 
-SELECT transaction.date, credit_card.id_card_holder, card_holder.name, credit_card.card, transaction.amount, merchant.name, merchant_category.name
+ALTER TABLE merchant RENAME COLUMN id TO id_merchant
+ALTER TABLE merchant RENAME COLUMN name to merchant_name
+ALTER TABLE merchant_category RENAME COLUMN name TO merchant_category_name
+ALTER TABLE merchant_category RENAME COLUMN id to id_merchant_category
+
+SELECT transaction.date, credit_card.id_card_holder, card_holder.name, credit_card.card, transaction.amount, merchant.merchant_name, merchant_category.merchant_category_name
 
 FROM card_holder
 LEFT JOIN credit_card
@@ -3785,7 +3790,7 @@ LEFT JOIN transaction
 ON transaction.card = credit_card.card
 
 LEFT JOIN merchant 
-ON merchant.id = transaction.id_merchant
+ON merchant.id_merchant = transaction.id_merchant
 
 LEFT JOIN merchant_category
-ON merchant_category.id = merchant.id_merchant_category
+ON merchant_category.id_merchant_category = merchant.id_merchant_category
