@@ -21,8 +21,6 @@ CREATE TABLE merchant (
 FOREIGN KEY (id_merchant_category) REFERENCES merchant_category(id)
 );
 
-DROP TABLE transaction;
-
 CREATE TABLE transaction (
 	id INT PRIMARY KEY
 ,	date TIMESTAMP
